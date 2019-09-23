@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>HomePage</title>
+</head>
+<body>
+<div class="p-3 mb-2 bg-success text-white">
+    <header>
+        <a href="#" th:href="@{/}"><img src="/img/hb.png" th:src="@{img/hb.png}"></a>
+    </header>
+    <div class="container">
+        <div th:if="${message}" style="color: antiquewhite">
+            <h2 th:text="${message}"/>
+        </div>
+
+        <div style="margin-top: 50px">
+            <form method="POST" enctype="multipart/form-data" action="/">
+                <div class="form-group">
+                    <table>
+                        File to upload:</td>
+                        <td><input type="file" name="file" class="btn btn-info"/>
+                            <input type="submit" value="Upload" class="btn btn-info"/>
+                    </table>
+                </div>
+            </form>
+        </div>
+
+
+        <div style="margin-bottom: 20px; margin-top: 20px">
+            <ul>
+                <li th:each="file : ${files}">
+                    <a th:href="${file}" th:text="${file}" style="color: #fffdcb"/>
+                </li>
+            </ul>
+        </div>
+
+
+        <form method="POST" action="/readExcel">
+            <div class="form-group">
+
+                <input class="btn btn-primary" type="submit" value="Load Excel Data"/>
+            </div>
+        </form>
+
+        <br>
+
+        <form method="POST" action="/computeValue" class="form-inline">
+
+            <div>
+                <input class="form-control mb-2 mr-sm-2"
+                       type="text" name="amount" placeholder="Amount to be charged">
+            </div>
+            <br>
+            <div>
+                <input class="form-control mb-2 mr-sm-2"
+                       type="text" name="limit" placeholder="Threshold value">
+            </div>
+            <div>
+                <input class="btn btn-primary mb-2"
+                       type="submit" value="Compute Amount to be Charged"/>
+            </div>
+        </form>
+		<br>
+		<div style="max-width:500px;margin:auto;">
+			<form method="POST" action="/writeExcel" >
+				<div class="form-group">
+
+					<input class="btn btn-danger" type="submit" value="Write To Excel"/>
+				</div>
+			</form>
+		</div>
+    </div>
+</div>
+<footer>
+    <div class="p-3 mb-2 bg-success text-white" style="text-align: center; font-size: 22px">
+        &COPY;Heritage Bank Application, 2019
+    </div>
+</footer>
+</body>
+</html>

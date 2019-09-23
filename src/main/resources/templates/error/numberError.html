@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Change Right</title>
+</head>
+<body>
+
+<p>
+<h1 style="text-align: center">Number Format error</h1>
+</p>
+<div style="text-align: center; margin-top: 100px; margin-bottom: 100px">
+    <h2 th:text="${errorMessage}" style="color: red"></h2>
+
+    <a href="/" th:href="@{/}"><h4>Go back to Home Page</h4></a>
+
+</div>
+</body>
+</html>
