@@ -4,7 +4,6 @@ import com.hbng.miniapp.charger.model.Customer;
 import com.hbng.miniapp.charger.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 
@@ -23,10 +22,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> findByAmount(BigDecimal limit) {
+    public List<Customer> findByAmount(double limit) {
         List<Customer> newList = new ArrayList<>();
         for(Customer customer: findAll()){
-            if(customer!=null && customer.getTransactedAmount().compareTo(limit) >= 0){
+            if(customer!=null && customer.getTransactedAmount() >= limit){
                 newList.add(customer);
             }
         }
@@ -59,10 +58,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Map<String, Integer> myMap(BigDecimal amount) {
+    public Map<String, Integer> myMap(double amount) {
         Map<String, Integer> map = new LinkedHashMap<>();
         for(Customer customer: findAll()){
-            if(customer!=null && customer.getTransactedAmount().compareTo(amount) >= 0){
+            if(customer!=null && customer.getTransactedAmount() >= amount){
                 String accountNumber = customer.getAccountNumber();
                 if(!map.containsKey(accountNumber)){
                     map.put(accountNumber, 1);

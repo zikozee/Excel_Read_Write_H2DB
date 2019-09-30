@@ -9,7 +9,6 @@ import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -21,18 +20,18 @@ public abstract class ExcelFeatures {
 
     protected long sn =0;
 
-    protected BigDecimal convertToDouble(String amountInString){
+    protected double convertToDouble(String amountInString){
         try{
-            return new BigDecimal(amountInString);
+            return Double.parseDouble(amountInString);
         }catch (NumberFormatException e){
             throw new MyNumberFormatException("ONE OR MORE NUMBERS ARE NOT PROPERLY " +
                     "FORMATTED CHECK ROW " + (sn-2) + " TO "+(sn+5) + " >>>CORRECT AND RESTART APPLICATION");
         }
     }
 
-    protected BigDecimal checkBigValue(String amountInString){
+    protected double checkDoubleValue(String amountInString){
         try{
-            return new BigDecimal(amountInString);
+            return Double.parseDouble(amountInString);
         }catch (NumberFormatException e){
             throw new MyNumberFormatException("Amount to be charged Or Threshold value is not a number");
         }
@@ -72,8 +71,8 @@ public abstract class ExcelFeatures {
         ArrayList<String> list = new ArrayList<>();
         String accountNumber = processed.getAccountNumber();
         int transactedTimes = processed.getTransactedTimes();
-        BigDecimal amount = processed.getChargedAmount();
-        BigDecimal total = processed.getPayable();
+        double amount = processed.getChargedAmount();
+        double total = processed.getPayable();
 
 
         Collections.addAll(list, accountNumber, String.valueOf(transactedTimes),

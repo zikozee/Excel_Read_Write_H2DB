@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.math.BigDecimal;
-
 @Controller
 @Slf4j
 public class ExcelController {
@@ -42,8 +40,8 @@ public class ExcelController {
             redirectAttributes.addFlashAttribute("message", "Amount to be charged And Threshold value cannot be empty");
             return "redirect:/";
         }
-        BigDecimal checkedValue = excelUtil.checkBigDecimal(value);
-        BigDecimal checkedLimit = excelUtil.checkBigDecimal(limitValue);
+        double checkedValue = excelUtil.checkDouble(value);
+        double checkedLimit = excelUtil.checkDouble(limitValue);
         processedCustomerService.loadProcessedCustomer(checkedValue, checkedLimit);
         redirectAttributes.addFlashAttribute("message", "Computed values successfully");
 

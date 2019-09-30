@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.math.BigDecimal;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
@@ -16,10 +15,10 @@ public class ProcessedCustomer {
     private Long id;
     private String accountNumber;
     private int transactedTimes;
-    private BigDecimal chargedAmount;
-    private BigDecimal payable;
+    private double chargedAmount;
+    private double payable;
 
-    public ProcessedCustomer(String accountNumber, int transactedTimes, BigDecimal chargedAmount, BigDecimal payable) {
+    public ProcessedCustomer(String accountNumber, int transactedTimes, double chargedAmount, double payable) {
         this.accountNumber = accountNumber;
         this.transactedTimes = transactedTimes;
         this.chargedAmount = chargedAmount;

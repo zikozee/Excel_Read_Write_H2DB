@@ -5,7 +5,6 @@ import com.hbng.miniapp.charger.repository.ProcessedCustomerRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -32,12 +31,13 @@ public class ProcessedCustomerServiceImpl implements ProcessedCustomerService {
     }
 
     @Override
-    public void loadProcessedCustomer(BigDecimal amountCharged, BigDecimal limit) {
+    public void loadProcessedCustomer(double amountCharged, double limit) {
         Map<String, Integer> map = customerService.myMap(limit);
 
         for(String key: map.keySet()){
             int value = map.get(key);
-            ProcessedCustomer processed = new ProcessedCustomer(key, value, amountCharged, (amountCharged.multiply(new BigDecimal(value))));
+            ProcessedCustomer processed =
+                    new ProcessedCustomer(key, value, amountCharged, (value*amountCharged));
             save(processed);
             log.info("<<<<<< COMPUTING CHARGES >>>>>");
         }
