@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -111,7 +112,7 @@ public class ExcelUtilImpl extends ExcelFeatures implements ExcelUtil {
 
 
     @Override
-    public double checkDouble(String value) {
-        return checkDoubleValue(value);
+    public BigDecimal checkBigDecimal(String value) {
+        return checkBigValue(value);
     }
 }

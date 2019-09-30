@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
@@ -14,9 +15,9 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String accountNumber;
-    private double transactedAmount;
+    private BigDecimal transactedAmount;
 
-    public Customer(String accountNumber, double transactedAmount) {
+    public Customer(String accountNumber, BigDecimal transactedAmount) {
         this.accountNumber = accountNumber;
         this.transactedAmount = transactedAmount;
     }
