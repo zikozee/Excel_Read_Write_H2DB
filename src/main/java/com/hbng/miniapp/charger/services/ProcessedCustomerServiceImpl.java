@@ -36,8 +36,7 @@ public class ProcessedCustomerServiceImpl implements ProcessedCustomerService {
 
         for(String key: map.keySet()){
             int value = map.get(key);
-            ProcessedCustomer processed =
-                    new ProcessedCustomer(key, value, amountCharged, (value*amountCharged));
+            ProcessedCustomer processed = new ProcessedCustomer(key, value, amountCharged, (value*amountCharged));
             save(processed);
             log.info("<<<<<< COMPUTING CHARGES >>>>>");
         }

@@ -2,11 +2,12 @@ package com.hbng.miniapp.charger.services;
 
 import com.hbng.miniapp.charger.model.Customer;
 import com.hbng.miniapp.charger.repository.CustomerRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
+@Slf4j
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -64,9 +65,11 @@ public class CustomerServiceImpl implements CustomerService {
             if(customer!=null && customer.getTransactedAmount() >= amount){
                 String accountNumber = customer.getAccountNumber();
                 if(!map.containsKey(accountNumber)){
+                    log.info("AM CHECKING HERE"+ customer.getTransactedAmount());
                     map.put(accountNumber, 1);
                 }else{
-                    map.put(customer.getAccountNumber(), map.get(accountNumber)+1);
+                    int value = map.get(accountNumber) +1 ;
+                    map.put(customer.getAccountNumber(), value);
                 }
             }
         }
