@@ -34,12 +34,25 @@ public class ProcessedCustomerServiceImpl implements ProcessedCustomerService {
     public void loadProcessedCustomer(double amountCharged, double limit) {
         Map<String, Integer> map = customerService.myMap(limit);
 
-        for(String key: map.keySet()){
-            int value = map.get(key);
+        long start = System.currentTimeMillis();
+        /**
+         * LONG PROCESS
+         * */
+//        for(String key: map.keySet()){
+//            int value = map.get(key);
+//            ProcessedCustomer processed = new ProcessedCustomer(key, value, amountCharged, (value*amountCharged));
+//            save(processed);
+//            log.info("<<<<<< COMPUTING CHARGES >>>>>");
+//        }
+        map.entrySet().parallelStream().forEach(entry ->{
+            String key = entry.getKey();
+            int value = entry.getValue();
             ProcessedCustomer processed = new ProcessedCustomer(key, value, amountCharged, (value*amountCharged));
             save(processed);
             log.info("<<<<<< COMPUTING CHARGES >>>>>");
-        }
+        });
+        long end  = System.currentTimeMillis();
         log.info("<<<<<<   ====>  COMPUTATION COMPLETED  <==== >>>>>");
+        log.info(" Value in millis: " + (end - start));
     }
 }
