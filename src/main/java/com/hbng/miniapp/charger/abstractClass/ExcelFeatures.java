@@ -67,7 +67,7 @@ public abstract class ExcelFeatures {
         return strCellValue;
     }
 
-    protected ArrayList ObjectToArrayList(ProcessedCustomer processed){
+    private ArrayList ObjectToArrayList(ProcessedCustomer processed){
         ArrayList<String> list = new ArrayList<>();
         String accountNumber = processed.getAccountNumber();
         int transactedTimes = processed.getTransactedTimes();

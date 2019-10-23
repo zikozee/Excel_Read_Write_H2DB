@@ -5,6 +5,7 @@ import com.hbng.miniapp.charger.services.ProcessedCustomerService;
 import com.hbng.miniapp.charger.services.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,18 +34,18 @@ public class ExcelController {
     }
 
     @PostMapping("/computeValue")
-    public String computeValue(RedirectAttributes redirectAttributes,
+    public String computeValue(Model model,
                                @RequestParam("amount") String value, @RequestParam("limit") String limitValue) {
 
         if(value == null|| limitValue == null){
-            redirectAttributes.addFlashAttribute("message", "Amount to be charged And Threshold value cannot be empty");
+            model.addAttribute("message", "Amount to be charged And Threshold value cannot be empty");
             return "redirect:/";
         }
         double checkedValue = excelUtil.checkDouble(value);
         double checkedLimit = excelUtil.checkDouble(limitValue);
 
         processedCustomerService.loadProcessedCustomer(checkedValue, checkedLimit);
-        redirectAttributes.addFlashAttribute("message", "Computed values successfully");
+        model.addAttribute("message", "Computed values successfully");
 
         return "redirect:/";
     }
