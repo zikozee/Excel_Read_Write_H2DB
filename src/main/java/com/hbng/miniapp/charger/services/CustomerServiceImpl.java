@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -24,13 +25,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> findByAmount(double limit) {
-        List<Customer> newList = new ArrayList<>();
-        for(Customer customer: findAll()){
-            if(customer!=null && customer.getTransactedAmount() >= limit){
-                newList.add(customer);
-            }
-        }
-        return newList;
+        //List<Customer> newList = new ArrayList<>();
+        return findAll().parallelStream()
+                .filter(Objects::nonNull)
+                .filter(customer -> customer.getTransactedAmount() >= limit)
+                .collect(Collectors.toList());
+
+        //return newList;
     }
 
     @Override
@@ -61,18 +62,29 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Map<String, Integer> myMap(double amount) {
         Map<String, Integer> map = new LinkedHashMap<>();
-        for(Customer customer: findAll()){
-            if(customer!=null && customer.getTransactedAmount() >= amount){
-                String accountNumber = customer.getAccountNumber();
-                if(!map.containsKey(accountNumber)){
-                    log.info("AM CHECKING HERE"+ customer.getTransactedAmount());
-                    map.put(accountNumber, 1);
-                }else{
-                    int value = map.get(accountNumber) +1 ;
-                    map.put(customer.getAccountNumber(), value);
-                }
-            }
-        }
+
+        findAll().stream()
+                .filter(Objects::nonNull)
+                .filter(customer -> customer.getTransactedAmount() >= amount)
+                .parallel()
+                .map(customer ->
+                        (!map.containsKey(customer.getAccountNumber())
+                                ? map.put(customer.getAccountNumber(), 1)
+                                : map.put(customer.getAccountNumber(), map.get(customer.getAccountNumber()) +1)))
+                .collect(Collectors.toList());
+
+//        for(Customer customer: findAll()){
+//            if(customer!=null && customer.getTransactedAmount() >= amount){
+//                String accountNumber = customer.getAccountNumber();
+//                if(!map.containsKey(accountNumber)){
+//                    log.info("AM CHECKING HERE"+ customer.getTransactedAmount());
+//                    map.put(accountNumber, 1);
+//                }else{
+//                    int value = map.get(accountNumber) +1 ;
+//                    map.put(customer.getAccountNumber(), value);
+//                }
+//            }
+//        }
         return map;
     }
 }

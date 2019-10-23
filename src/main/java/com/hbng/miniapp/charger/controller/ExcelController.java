@@ -42,6 +42,7 @@ public class ExcelController {
         }
         double checkedValue = excelUtil.checkDouble(value);
         double checkedLimit = excelUtil.checkDouble(limitValue);
+
         processedCustomerService.loadProcessedCustomer(checkedValue, checkedLimit);
         redirectAttributes.addFlashAttribute("message", "Computed values successfully");
 
