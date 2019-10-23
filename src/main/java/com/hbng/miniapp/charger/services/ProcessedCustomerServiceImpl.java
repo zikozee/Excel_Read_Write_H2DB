@@ -42,7 +42,6 @@ public class ProcessedCustomerServiceImpl implements ProcessedCustomerService {
 //            int value = map.get(key);
 //            ProcessedCustomer processed = new ProcessedCustomer(key, value, amountCharged, (value*amountCharged));
 //            save(processed);
-//            log.info("<<<<<< COMPUTING CHARGES >>>>>");
 //        }
         map.entrySet().parallelStream().forEach(entry ->{
             String key = entry.getKey();
