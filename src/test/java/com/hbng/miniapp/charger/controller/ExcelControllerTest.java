@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,9 +45,7 @@ class ExcelControllerTest {
 
     @BeforeEach
     void setUp() {
-        processedCustomers = new ArrayList<>();
-        processedCustomers.add(new ProcessedCustomer("a", 5, 6.0, 10.0));
-        processedCustomers.add(new ProcessedCustomer("b", 2, 2.0, 3.0));
+
 
         customers = new HashSet<>();
         customers.add(new Customer("customer1", 5.0));
