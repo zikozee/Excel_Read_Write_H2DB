@@ -25,13 +25,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> findByAmount(double limit) {
-        //List<Customer> newList = new ArrayList<>();
+//        List<Customer> newList = new ArrayList<>();
+//        findAll().parallelStream().forEach(customer -> {
+//            if(customer != null && customer.getTransactedAmount()>=limit){
+//                newList.add(customer);
+//            }
+//        });
+//
+//        return newList;
+
+
         return findAll().parallelStream()
                 .filter(Objects::nonNull)
                 .filter(customer -> customer.getTransactedAmount() >= limit)
                 .collect(Collectors.toList());
-
-        //return newList;
     }
 
     @Override
